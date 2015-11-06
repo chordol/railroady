@@ -26,8 +26,11 @@ class AppDiagram
         exit 2
       end
     end
-
-    if @options.xmi
+    
+    if @options.json
+      STDERR.print "Generating JSON graph\n" if @options.verbose
+      STDOUT.print @graph.to_json
+    elsif @options.xmi
       STDERR.print "Generating XMI diagram\n" if @options.verbose
       STDOUT.print @graph.to_xmi
     else

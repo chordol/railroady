@@ -36,6 +36,7 @@ class OptionsStruct < OpenStruct
                      verbose: false,
                      alphabetize: false,
                      xmi: false,
+                     json: false,
                      command: '',
                      config_file: 'config/environment',
                      app_name: 'railroady', app_human_name: 'Railroady', app_version: '', copyright: '' }
@@ -59,6 +60,9 @@ class OptionsStruct < OpenStruct
       end
       opts.on('-i', '--inheritance', 'Include inheritance relations') do |i|
         self.inheritance = i
+      end
+      opts.on('--json', 'Output JSON graph') do |j|
+        self.json = j
       end
       opts.on('-l', '--label', 'Add a label with diagram information',
               '  (type, date, migration, version)') do |l|

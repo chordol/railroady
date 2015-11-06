@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require 'railroady'
+options = OptionsStruct.new(root: '/Users/sasha.dzeletovic/Development/centro-media-manager/', all:true, engine_models:true, command: 'models', inheritance: true, brief: true, json: true)
+old_dir = Dir.pwd
+Dir.chdir(options.root)
+diagram = ModelsDiagram.new options
+diagram.process
+diagram.generate
+bindings.pry
+puts diagram.inspect
+File.open('/Users/sasha.dzeletovic/Development/centro-media-manager/lib/tasks/client_model_diagram/tempoutput', 'w') { |file| file.write(diagram.inspect) }
+Dir.chdir(old_dir)

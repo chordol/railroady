@@ -42,6 +42,15 @@ class DiagramGraph
     ''
   end
 
+  def to_json
+    "{\"nodes\": [" +
+      @nodes.map { |n| json_node n[0], n[1], n[2], n[3] }.join(",\n") +
+    "],\n" +
+      "\"edges\": [" +
+      @edges.map { |e| json_edge e[0], e[1], e[2], e[3] }.join(",\n") +
+    "]}"
+  end
+
   private
 
   # Build DOT diagram header
@@ -123,6 +132,16 @@ class DiagramGraph
     end
     "\t#{quote(from)} -> #{quote(to)} [#{options}]\n"
   end # dot_edge
+
+  # Build a JSON graph node
+  def json_node(type, name, attributes = nil, custom_options = '')
+    "\{\"name\": #{quote(name)}, \"type\": #{quote(type)}\}"
+  end # json_node
+
+  # Build a JSON graph edge
+  def json_edge(type, from, to, name = '')
+    "\{\"from\": #{quote(from)}, \"to\": #{quote(to)}, \"type\": #{quote(type)}\}"
+  end # json_edge
 
   # Quotes a class name
   def quote(name)
